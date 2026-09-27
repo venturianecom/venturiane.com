@@ -1,0 +1,9 @@
+.DS_Store
+.design-assets/
+.sites-runtime/
+.astro/
+coverage/
+dist/
+node_modules/
+playwright-report/
+test-results/

@@ -1,0 +1,75 @@
+---
+import {
+  languageNames,
+  languageRoutes,
+  supportedLanguages,
+  translations,
+  type Language,
+} from "../i18n/config";
+
+interface Props {
+  language: Language;
+  routes?: Partial<Record<Language, string>>;
+}
+
+const { language, routes = languageRoutes } = Astro.props;
+const copy = translations[language];
+---
+
+<label class="language-picker">
+  <span class="visually-hidden">{copy.languageLabel}</span>
+  <svg aria-hidden="true" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+  </svg>
+  <select
+    class="language-select"
+    id="language-select"
+    aria-label={copy.languageLabel}
+  >
+    {supportedLanguages.map((option) => (
+      <option
+        value={option}
+        data-route={routes[option] ?? languageRoutes[option]}
+        selected={option === language}
+      >
+        {languageNames[option]}
+      </option>
+    ))}
+  </select>
+  <svg class="language-chevron" aria-hidden="true" viewBox="0 0 16 16">
+    <path d="m4 6 4 4 4-4"></path>
+  </svg>
+</label>
+
+<script>
+  import { isLanguage, languageStorageKey } from "../i18n/config";
+
+  const selector =
+    document.querySelector<HTMLSelectElement>("#language-select");
+
+  if (selector && isLanguage(selector.value)) {
+    try {
+      localStorage.setItem(languageStorageKey, selector.value);
+    } catch {
+      // The current language remains active without browser storage.
+    }
+  }
+
+  selector?.addEventListener("change", () => {
+    if (!isLanguage(selector.value)) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(languageStorageKey, selector.value);
+    } catch {
+      // Navigation still works when browser storage is unavailable.
+    }
+
+    const route = selector.selectedOptions[0]?.dataset.route;
+    if (route) {
+      window.location.assign(route);
+    }
+  });
+</script>

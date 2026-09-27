@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://venturiane.com/sitemap.xml

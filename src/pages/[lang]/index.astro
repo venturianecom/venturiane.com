@@ -1,0 +1,52 @@
+---
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import Notes from "../../components/Notes.astro";
+import { getPublishedBlogPosts } from "../../content/blog";
+import {
+  supportedLanguages,
+  translations,
+  type Language,
+} from "../../i18n/config";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return supportedLanguages.map((lang) => ({ params: { lang } }));
+}
+
+const language = Astro.params.lang as Language;
+const copy = translations[language];
+const posts = (await getPublishedBlogPosts())
+  .filter(({ data }) => data.language === language)
+  .sort(
+    (first, second) =>
+      second.data.pubDate.valueOf() - first.data.pubDate.valueOf(),
+  );
+---
+
+<BaseLayout
+  language={language}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  canonicalPath={`/${language}/`}
+  locale={copy.meta.locale}
+  alternateLocale={copy.meta.alternateLocale}
+>
+  <div class="page">
+    <Header {language} />
+
+    <main id="top">
+      <section id={copy.about.id} aria-labelledby="intro-title">
+        <p class="eyebrow">{copy.hero.eyebrow}</p>
+        <h1 id="intro-title">{copy.hero.title}</h1>
+        <p class="intro">
+          <strong>Venturian Ecom</strong> {copy.hero.body}
+        </p>
+      </section>
+
+      <Notes {language} {posts} />
+    </main>
+
+    <Footer {language} />
+  </div>
+</BaseLayout>

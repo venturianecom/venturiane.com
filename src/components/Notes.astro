@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { translations, type Language } from "../i18n/config";
+
+interface Props {
+  language: Language;
+  posts: CollectionEntry<"blog">[];
+}
+
+const { language, posts } = Astro.props;
+const copy = translations[language];
+const dateFormatter = new Intl.DateTimeFormat(
+  language === "nl" ? "nl-NL" : "en-US",
+  { dateStyle: "long" },
+);
+---
+
+<section id={copy.notes.id} aria-labelledby="notes-title">
+  <div class="notes-heading">
+    <h2 id="notes-title">{copy.notes.label}</h2>
+  </div>
+  <div class="notes-list" id="notes-list">
+    {posts.length === 0 ? (
+      <div class="empty-note">
+        <p>{copy.notes.emptyTitle}</p>
+        <p>{copy.notes.emptyBody}</p>
+      </div>
+    ) : (
+      posts.map((post) => (
+        <article class="note">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {dateFormatter.format(post.data.pubDate)}
+          </time>
+          <h3>
+            <a href={`/${language}/blog/${post.data.slug}/`}>
+              {post.data.title}
+            </a>
+          </h3>
+          <p>{post.data.description}</p>
+        </article>
+      ))
+    )}
+  </div>
+</section>

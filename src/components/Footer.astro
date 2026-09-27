@@ -1,0 +1,22 @@
+---
+import { translations, type Language } from "../i18n/config";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const copy = translations[language];
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <p>© {currentYear} Venturian Ecom.</p>
+  <p>
+    {copy.footer.made}{" "}
+    <span class="heart" aria-label={copy.footer.heartLabel}>
+      ♥
+    </span>{" "}
+    {copy.footer.by} Venturian Ecom.
+  </p>
+</footer>

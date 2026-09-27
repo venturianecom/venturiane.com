@@ -1,0 +1,36 @@
+---
+import Footer from "../components/Footer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  language="en"
+  title="Page not found | Venturian Ecom"
+  description="The requested page could not be found."
+  canonicalPath="/404.html"
+  locale="en_US"
+  alternateLocale="nl_NL"
+  alternatePaths={{}}
+  robots="noindex, follow"
+>
+  <div class="article-page">
+    <header>
+      <a class="brand" href="/en/">
+        venturian ecom
+      </a>
+    </header>
+
+    <main>
+      <section class="prose" aria-labelledby="not-found-title">
+        <p class="eyebrow">404</p>
+        <h1 id="not-found-title">Page not found.</h1>
+        <p>Deze pagina bestaat niet. This page does not exist.</p>
+        <p>
+          <a href="/nl/">Nederlands</a> · <a href="/en/">English</a>
+        </p>
+      </section>
+    </main>
+
+    <Footer language="en" />
+  </div>
+</BaseLayout>
