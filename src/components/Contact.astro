@@ -1,0 +1,19 @@
+---
+import { translations, type Language } from "../i18n/config";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const copy = translations[language];
+const email = "hello@venturiane.com";
+---
+
+<section class="contact" id={copy.contact.id} aria-labelledby="contact-title">
+  <p class="eyebrow">{copy.contact.label}</p>
+  <h2 id="contact-title">{copy.contact.title}</h2>
+  <p>
+    {copy.contact.body} <a href={`mailto:${email}`}>{email}</a>.
+  </p>
+</section>

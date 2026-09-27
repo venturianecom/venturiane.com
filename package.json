@@ -1,0 +1,53 @@
+{
+  "name": "venturiane.com",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "npm@11.16.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:html": "html-validate \"dist/**/*.html\"",
+    "lighthouse": "npm run build && npm run lighthouse:check",
+    "lighthouse:check": "node scripts/lighthouse.mjs",
+    "smoke:production": "node scripts/smoke-production.mjs",
+    "test": "npm run build && npm run check:html && vitest run && playwright test",
+    "test:unit": "npm run build && npm run check:html && vitest run",
+    "test:e2e": "npm run build && playwright test",
+    "validate": "npm run format:check && npm run lint && npm run check && npm run test && npm run lighthouse:check"
+  },
+  "dependencies": {
+    "astro": "7.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.19.0",
+    "chrome-launcher": "1.2.1",
+    "eslint": "10.11.0",
+    "eslint-plugin-astro": "3.2.1",
+    "globals": "17.12.0",
+    "html-validate": "11.16.1",
+    "lighthouse": "13.5.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.1",
+    "vitest": "5.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true,
+    "fsevents@2.3.2": true
+  }
+}

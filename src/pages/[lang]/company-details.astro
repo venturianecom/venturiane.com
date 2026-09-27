@@ -1,0 +1,61 @@
+---
+import ArticleHeader from "../../components/ArticleHeader.astro";
+import Footer from "../../components/Footer.astro";
+import {
+  supportedLanguages,
+  translations,
+  type Language,
+} from "../../i18n/config";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return supportedLanguages.map((lang) => ({ params: { lang } }));
+}
+
+const language = Astro.params.lang as Language;
+const copy = translations[language];
+const alternatePaths = {
+  nl: "/nl/company-details/",
+  en: "/en/company-details/",
+} as const;
+---
+
+<BaseLayout
+  language={language}
+  title={`${copy.company.title} | Venturian Ecom`}
+  description={copy.company.description}
+  canonicalPath={alternatePaths[language]}
+  locale={copy.meta.locale}
+  alternateLocale={copy.meta.alternateLocale}
+  {alternatePaths}
+>
+  <div class="article-page" id="top">
+    <ArticleHeader {language} {alternatePaths} />
+
+    <main id="main-content" tabindex="-1">
+      <article class="company-details">
+        <p class="eyebrow">{copy.company.eyebrow}</p>
+        <h1>{copy.company.title}</h1>
+
+        <dl>
+          <div>
+            <dt>{copy.company.registrationLabel}</dt>
+            <dd>98192531</dd>
+          </div>
+          <div>
+            <dt>{copy.company.vatLabel}</dt>
+            <dd>NL005314869B56</dd>
+          </div>
+          <div>
+            <dt>{copy.company.emailLabel}</dt>
+            <dd>
+              <a href="mailto:hello@venturiane.com">hello@venturiane.com</a>
+            </dd>
+          </div>
+        </dl>
+      </article>
+    </main>
+
+    <Footer {language} />
+  </div>
+</BaseLayout>

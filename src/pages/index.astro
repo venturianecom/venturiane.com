@@ -1,0 +1,69 @@
+---
+import {
+  defaultLanguage,
+  languageNames,
+  languageRoutes,
+  supportedLanguages,
+} from "../i18n/config";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#07111f" />
+    <noscript>
+      <meta http-equiv="refresh" content={`0; url=/${defaultLanguage}/`} />
+    </noscript>
+    <title>Venturian Ecom</title>
+    {supportedLanguages.map((language) => (
+      <link
+        rel="alternate"
+        hreflang={language}
+        href={new URL(languageRoutes[language], Astro.site)}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={Astro.site} />
+  </head>
+  <body>
+    <p>
+      {supportedLanguages.map((language) => (
+        <a href={languageRoutes[language]} hreflang={language}>
+          {languageNames[language]}
+        </a>
+      ))}
+    </p>
+    <script>
+      import {
+        defaultLanguage,
+        isLanguage,
+        languageRoutes,
+        languageStorageKey,
+      } from "../i18n/config";
+
+      function getSavedLanguage() {
+        try {
+          const language = localStorage.getItem(languageStorageKey);
+          return language && isLanguage(language) ? language : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function getDeviceLanguage() {
+        const languages = navigator.languages ?? [navigator.language];
+        return languages.some((language) =>
+          language.toLowerCase().startsWith("nl"),
+        )
+          ? "nl"
+          : defaultLanguage;
+      }
+
+      const language = getSavedLanguage() ?? getDeviceLanguage();
+      window.location.replace(languageRoutes[language]);
+    </script>
+  </body>
+</html>

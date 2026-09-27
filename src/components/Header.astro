@@ -1,0 +1,23 @@
+---
+import { translations, type Language } from "../i18n/config";
+import LanguageSelector from "./LanguageSelector.astro";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const copy = translations[language];
+---
+
+<header>
+  <a class="brand" href="#top" aria-label={copy.brandLabel} id="brand-link">
+    venturian ecom
+  </a>
+  <nav aria-label={copy.navigationLabel}>
+    <a href={`#${copy.about.id}`}>{copy.about.label}</a>
+    <a href={`#${copy.contact.id}`}>{copy.contact.label}</a>
+    <a href={`#${copy.notes.id}`}>{copy.notes.label}</a>
+    <LanguageSelector {language} />
+  </nav>
+</header>

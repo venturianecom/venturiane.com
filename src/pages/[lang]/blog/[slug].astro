@@ -1,0 +1,94 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+import ArticleHeader from "../../../components/ArticleHeader.astro";
+import Footer from "../../../components/Footer.astro";
+import { getPublishedBlogPosts } from "../../../content/blog";
+import { getReadingTimeMinutes } from "../../../content/reading-time";
+import { translations, type Language } from "../../../i18n/config";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  alternatePaths: Partial<Record<Language, string>>;
+}
+
+export async function getStaticPaths() {
+  const posts = await getPublishedBlogPosts();
+
+  return posts.map((post) => {
+    const translationsForPost = posts.filter(
+      (candidate) => candidate.data.translationKey === post.data.translationKey,
+    );
+    const alternatePaths = Object.fromEntries(
+      translationsForPost.map((candidate) => [
+        candidate.data.language,
+        `/${candidate.data.language}/blog/${candidate.data.slug}/`,
+      ]),
+    ) as Partial<Record<Language, string>>;
+
+    return {
+      params: {
+        lang: post.data.language,
+        slug: post.data.slug,
+      },
+      props: { post, alternatePaths },
+    };
+  });
+}
+
+const { post, alternatePaths } = Astro.props;
+const language = post.data.language;
+const copy = translations[language];
+const { Content } = await render(post);
+const readingMinutes = getReadingTimeMinutes(post.body);
+---
+
+<BaseLayout
+  language={language}
+  title={`${post.data.title} | Venturian Ecom`}
+  description={post.data.description}
+  canonicalPath={`/${language}/blog/${post.data.slug}/`}
+  locale={copy.meta.locale}
+  alternateLocale={copy.meta.alternateLocale}
+  {alternatePaths}
+  type="article"
+  article={{
+    title: post.data.title,
+    author: post.data.author,
+    publishedTime: post.data.pubDate,
+    readingMinutes,
+    tags: post.data.tags,
+    ...(post.data.updatedDate ? { modifiedTime: post.data.updatedDate } : {}),
+  }}
+>
+  <div class="article-page" id="top">
+    <ArticleHeader {language} {alternatePaths} />
+
+    <main id="main-content" tabindex="-1">
+      <article class="prose">
+        <p class="eyebrow">{copy.notes.label}</p>
+        <h1>{post.data.title}</h1>
+        <p class="article-meta">
+          <span>
+            {copy.articleByLabel}{" "}
+            <a href={post.data.author.url} rel="author">
+              {post.data.author.name}
+            </a>
+          </span>
+          <span aria-hidden="true">·</span>
+          <time datetime={post.data.pubDate.toISOString()}>
+            {new Intl.DateTimeFormat(language === "nl" ? "nl-NL" : "en-US", {
+              dateStyle: "long",
+            }).format(post.data.pubDate)}
+          </time>
+          <span aria-hidden="true">·</span>
+          <span>{copy.articleReadingTimeLabel(readingMinutes)}</span>
+        </p>
+        <Content />
+      </article>
+    </main>
+
+    <Footer {language} />
+  </div>
+</BaseLayout>
