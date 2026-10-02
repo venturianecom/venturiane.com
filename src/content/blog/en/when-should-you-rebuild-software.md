@@ -24,9 +24,8 @@ hardest part: understanding what the software needs to do in practice. That
 knowledge is often spread across code, data, connected systems and people who
 remember the exceptions.
 
-The first question is therefore not: _which technology should we choose for the
-new version?_ The first question is: _why is this system difficult to change,
-and how much do we actually need to replace?_
+Before discussing new technology, something else needs to be clear: _why is this
+system difficult to change, and how much do we actually need to replace?_
 
 ## "The software is old" is not a diagnosis
 
@@ -50,8 +49,8 @@ new technical foundation.
 
 ## Find where change actually gets stuck
 
-Good software architecture is not only about the parts of a system. It is
-primarily about how safely and predictably those parts can change.
+Software architecture proves its value when components can change safely and
+predictably.
 
 Look at the entire path from idea to production:
 
@@ -77,7 +76,7 @@ understand, test and operate.
 **Stabilise.** Sometimes you first need to see what is happening. Logging records
 events, monitoring watches known signals and tracing follows one request through
 multiple components. Together they make a system's internal state understandable
-from its output. This is often called _observability_.
+from its output. The technical term for this is _observability_.
 
 **Isolate.** A difficult component can be placed behind a clear boundary. The
 rest of the system then uses an agreed contract, such as an API. This is a
@@ -106,12 +105,12 @@ about the source data. A new backend will not help either if both routes continu
 to exist.
 
 A focused approach begins with one authoritative data source: the place that
-ultimately determines what is correct for a particular piece of data. This is
-often called a **source of truth**. The backend then gets one clear contract for
-changes. The frontend only presents a change as successful after the backend has
-confirmed it through that contract. Automated tests subsequently verify that the
-frontend and backend continue to use the same agreements. Such checks are known
-as contract tests.
+determines what is correct for a particular piece of data. In software
+architecture, this is called a **source of truth**. The backend then gets one
+clear contract for changes. The frontend only presents a change as successful
+after the backend has confirmed it through that contract. Automated tests
+subsequently verify that the frontend and backend continue to use the same
+agreements. Such checks are known as contract tests.
 
 This does not replace the whole application. It first addresses the architectural
 cause: unclear data ownership and multiple routes for the same action.
@@ -178,15 +177,15 @@ Without these answers, rebuilding is primarily a leap into an unknown situation.
 With clear answers, a rewrite can be a controlled choice instead of a hopeful
 reset.
 
-Good architecture is ultimately not about using as much new technology as
-possible. It keeps software understandable, contains failures and allows change
-without putting the entire system at risk each time.
+For us, that is the core of good architecture: software that remains
+understandable and changeable without putting the entire system at risk every
+time something changes.
 
-Venturian Ecom helps organisations clarify and carry out these technical choices
-in a controlled way — from architecture and backend to frontend, data and
-integrations. We first determine what can remain. We then improve or replace what
-is genuinely standing in the way of change.
+That is where Venturian Ecom helps. We investigate where change gets stuck and
+then work on the architecture, backend, frontend, data or integrations causing
+it. We leave what works well in place. We improve or replace what gets in the
+way.
 
-Are you deciding whether to improve existing software or rebuild it? Describe
-where change currently gets stuck and what people notice in practice. That is a
-better starting point than choosing a new technical solution in advance.
+Considering a rewrite? Do not start with the new technology. First write down
+where the current system is holding you back and who notices it in practice.
+That is where a useful conversation begins.

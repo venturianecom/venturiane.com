@@ -24,9 +24,9 @@ niet automatisch het moeilijkste deel: begrijpen wat de software in de praktijk
 moet doen. Die kennis zit vaak verspreid over code, gegevens, gekoppelde systemen
 en mensen die uitzonderingen uit hun hoofd kennen.
 
-De eerste vraag is daarom niet: _welke techniek kiezen we voor de nieuwe versie?_
-De eerste vraag is: _waarom is dit systeem zo moeilijk te veranderen, en hoeveel
-moeten we werkelijk vervangen?_
+Voordat we over nieuwe techniek praten, moet iets anders duidelijk worden:
+_waarom is dit systeem zo moeilijk te veranderen, en hoeveel moeten we werkelijk
+vervangen?_
 
 ## "De software is oud" is geen diagnose
 
@@ -50,8 +50,8 @@ een nieuwe technische basis na te bouwen.
 
 ## Zoek waar verandering werkelijk vastloopt
 
-Goede softwarearchitectuur gaat niet alleen over de onderdelen van een systeem.
-Ze gaat vooral over hoe veilig en voorspelbaar die onderdelen kunnen veranderen.
+Een softwarearchitectuur bewijst haar waarde wanneer onderdelen veilig en
+voorspelbaar kunnen veranderen.
 
 Kijk daarom naar het hele pad van idee tot productie:
 
@@ -76,14 +76,14 @@ minder code om te begrijpen, testen en beheren.
 **Stabiliseren.** Soms is eerst zicht nodig op wat er gebeurt. Logging legt
 gebeurtenissen vast, monitoring bewaakt bekende signalen en tracing volgt één
 verzoek door meerdere onderdelen. Samen maken ze het interne gedrag van een
-systeem zichtbaar vanuit de uitvoer. Dat wordt ook wel _observability_ genoemd.
+systeem zichtbaar vanuit de uitvoer. Technisch noemen we dat _observability_.
 
 **Isoleren.** Een moeilijk onderdeel kan achter een duidelijke grens worden
 gezet. De rest van het systeem gebruikt dan een afgesproken contract, zoals een
 API. Dat is een technische ingang met vaste afspraken. Andere onderdelen hoeven
 de interne werking dan niet te kennen. Daardoor neemt de onderlinge
 afhankelijkheid af: de mate waarin een wijziging in het ene onderdeel wijzigingen
-elders afdwingt. De technische term daarvoor is **coupling**.
+elders afdwingt. Technisch heet die afhankelijkheid **coupling**.
 
 **Gericht vervangen.** Als één onderdeel de meeste problemen veroorzaakt, kan
 dat onderdeel vaak apart worden vervangen. De rest blijft ondertussen werken.
@@ -106,9 +106,9 @@ de brongegevens niet op. Een nieuwe backend helpt evenmin als beide routes naast
 elkaar blijven bestaan.
 
 Een gerichte aanpak begint met één leidende gegevensbron: de plek die voor een
-gegeven uiteindelijk bepaalt wat juist is. Dit wordt ook wel een **source of
-truth** genoemd. Daarna krijgt de backend één duidelijk contract voor wijzigingen.
-De frontend toont een wijziging pas als geslaagd wanneer de backend die via dat
+gegeven bepaalt wat juist is. In softwarearchitectuur heet dit een **source of
+truth**. Daarna krijgt de backend één duidelijk contract voor wijzigingen. De
+frontend toont een wijziging pas als geslaagd wanneer de backend die via dat
 contract heeft bevestigd. Automatische tests controleren vervolgens of frontend
 en backend dezelfde afspraken blijven gebruiken. Zulke controles worden
 contracttests genoemd.
@@ -177,15 +177,14 @@ Als deze antwoorden ontbreken, is opnieuw bouwen vooral een sprong naar een
 onbekende situatie. Als ze duidelijk zijn, kan een rewrite een beheerste keuze
 zijn in plaats van een hoopvolle reset.
 
-Goede architectuur draait uiteindelijk niet om zoveel mogelijk nieuwe techniek.
-Ze zorgt dat software begrijpelijk blijft, fouten begrensd zijn en verandering
-mogelijk is zonder telkens het hele systeem op het spel te zetten.
+Voor ons is dat de kern van goede architectuur: software die te begrijpen en te
+veranderen blijft, zonder dat iedere wijziging het hele systeem in gevaar brengt.
 
-Venturian Ecom helpt organisaties om zulke technische keuzes scherp te krijgen
-en gecontroleerd uit te voeren — van architectuur en backend tot frontend, data
-en integraties. Eerst bepalen we wat kan blijven. Daarna verbeteren of vervangen
-we gericht wat verandering in de weg staat.
+Daar helpt Venturian Ecom bij. We onderzoeken waar verandering vastloopt en werken
+vervolgens aan de architectuur, backend, frontend, data of integraties die dat
+veroorzaken. Wat goed werkt laten we staan. Wat in de weg zit verbeteren of
+vervangen we gericht.
 
-Sta je voor de keuze om bestaande software te verbeteren of opnieuw te bouwen?
-Beschrijf waar verandering nu vastloopt en wat daarvan in de praktijk merkbaar
-is. Dat is een beter startpunt dan alvast een nieuwe technische oplossing kiezen.
+Overweeg je een rewrite? Begin dan niet met de nieuwe techniek. Schrijf eerst op
+waar het huidige systeem je belemmert en wie daar in de praktijk last van heeft.
+Daar begint een zinnig gesprek.
