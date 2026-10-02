@@ -95,9 +95,11 @@ laat zien of het werkelijke probleem kleiner, groter of anders is dan gedacht.
 
 Stel dat een medewerker het adres van een klant wijzigt. Het ene scherm meldt dat
 de wijziging is opgeslagen, maar het factuursysteem gebruikt nog het oude adres.
-Achter de schermen bewaren twee backendroutes ieder een eigen kopie. Een
-nachtelijk proces probeert de verschillen te herstellen en kan daarbij zelfs het
-oude adres opnieuw leidend maken.
+Achter de schermen sturen twee technische routes de wijziging naar verschillende
+kopieën van dezelfde klantgegevens. Die routes behoren tot de backend: het deel
+van de software dat gegevens en bedrijfsregels verwerkt. Een nachtelijk proces
+probeert de verschillen te herstellen en kan daarbij zelfs het oude adres opnieuw
+leidend maken.
 
 Een nieuwe frontend kan het scherm verbeteren, maar lost de onduidelijkheid over
 de brongegevens niet op. Een nieuwe backend helpt evenmin als beide routes naast
@@ -107,8 +109,9 @@ Een gerichte aanpak begint met één leidende gegevensbron: de plek die voor een
 gegeven uiteindelijk bepaalt wat juist is. Dit wordt ook wel een **source of
 truth** genoemd. Daarna krijgt de backend één duidelijk contract voor wijzigingen.
 De frontend toont een wijziging pas als geslaagd wanneer de backend die via dat
-contract heeft bevestigd. Automatische contracttests bewaken vervolgens dat
-frontend en backend dezelfde afspraken blijven gebruiken.
+contract heeft bevestigd. Automatische tests controleren vervolgens of frontend
+en backend dezelfde afspraken blijven gebruiken. Zulke controles worden
+contracttests genoemd.
 
 Zo wordt niet de hele toepassing vervangen. Eerst wordt de architectonische
 oorzaak aangepakt: onduidelijk eigenaarschap van gegevens en meerdere routes voor
@@ -177,3 +180,12 @@ zijn in plaats van een hoopvolle reset.
 Goede architectuur draait uiteindelijk niet om zoveel mogelijk nieuwe techniek.
 Ze zorgt dat software begrijpelijk blijft, fouten begrensd zijn en verandering
 mogelijk is zonder telkens het hele systeem op het spel te zetten.
+
+Venturian Ecom helpt organisaties om zulke technische keuzes scherp te krijgen
+en gecontroleerd uit te voeren — van architectuur en backend tot frontend, data
+en integraties. Eerst bepalen we wat kan blijven. Daarna verbeteren of vervangen
+we gericht wat verandering in de weg staat.
+
+Sta je voor de keuze om bestaande software te verbeteren of opnieuw te bouwen?
+Beschrijf waar verandering nu vastloopt en wat daarvan in de praktijk merkbaar
+is. Dat is een beter startpunt dan alvast een nieuwe technische oplossing kiezen.

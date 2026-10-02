@@ -96,8 +96,10 @@ reveals whether the real problem is smaller, larger or different from expected.
 
 Imagine an employee changing a customer's address. One screen reports that the
 change was saved, but the invoicing system still uses the old address. Behind the
-screens, two backend routes each keep their own copy. A nightly process tries to
-reconcile the differences and may even make the old address authoritative again.
+screens, two technical routes send the change to separate copies of the same
+customer data. Those routes belong to the backend: the part of the software that
+processes data and business rules. A nightly process tries to reconcile the
+differences and may even make the old address authoritative again.
 
 A new frontend may improve the screen, but it will not resolve the uncertainty
 about the source data. A new backend will not help either if both routes continue
@@ -107,8 +109,9 @@ A focused approach begins with one authoritative data source: the place that
 ultimately determines what is correct for a particular piece of data. This is
 often called a **source of truth**. The backend then gets one clear contract for
 changes. The frontend only presents a change as successful after the backend has
-confirmed it through that contract. Automated contract tests subsequently verify
-that the frontend and backend continue to use the same agreements.
+confirmed it through that contract. Automated tests subsequently verify that the
+frontend and backend continue to use the same agreements. Such checks are known
+as contract tests.
 
 This does not replace the whole application. It first addresses the architectural
 cause: unclear data ownership and multiple routes for the same action.
@@ -178,3 +181,12 @@ reset.
 Good architecture is ultimately not about using as much new technology as
 possible. It keeps software understandable, contains failures and allows change
 without putting the entire system at risk each time.
+
+Venturian Ecom helps organisations clarify and carry out these technical choices
+in a controlled way — from architecture and backend to frontend, data and
+integrations. We first determine what can remain. We then improve or replace what
+is genuinely standing in the way of change.
+
+Are you deciding whether to improve existing software or rebuild it? Describe
+where change currently gets stuck and what people notice in practice. That is a
+better starting point than choosing a new technical solution in advance.
