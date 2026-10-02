@@ -33,14 +33,14 @@ Age alone tells us little. Ten-year-old software can be reliable and easy to
 change. A one-year-old application can already be stuck because its boundaries
 are unclear and its parts depend heavily on each other.
 
-Make the complaint concrete instead. For example:
+Make the problem concrete instead. For example:
 
 - a small change consistently affects several parts;
 - releases take a long time or often have to be rolled back;
 - defects are difficult to find and keep returning;
 - only a few people understand an important process;
 - the frontend cannot change without modifying the backend;
-- data has no clear owner or contradicts itself.
+- data has no clear owner, or different sources contradict each other.
 
 These are different problems. They do not automatically require the same
 solution. A slow user interface is not fixed by replacing a database. An unclear
@@ -79,11 +79,11 @@ multiple components. Together they make a system's internal state understandable
 from its output. The technical term for this is _observability_.
 
 **Isolate.** A difficult component can be placed behind a clear boundary. The
-rest of the system then uses an agreed contract, such as an API. This is a
-technical interface with fixed agreements. Other components no longer need to
-know its internal implementation. This reduces the degree to which a change in
-one component forces changes elsewhere. The technical term for that dependency
-is **coupling**.
+rest of the system then uses an agreed contract, such as an API. An API lets
+systems exchange data according to defined rules. Other components no longer
+need to know its internal implementation. This reduces the degree to which a
+change in one component forces changes elsewhere. The technical term for that
+dependency is **coupling**.
 
 **Replace selectively.** If one component causes most of the problems, it can
 often be replaced separately while the rest continues to operate.
@@ -106,11 +106,11 @@ to exist.
 
 A focused approach begins with one authoritative data source: the place that
 determines what is correct for a particular piece of data. In software
-architecture, this is called a **source of truth**. The backend then gets one
-clear contract for changes. The frontend only presents a change as successful
-after the backend has confirmed it through that contract. Automated tests
-subsequently verify that the frontend and backend continue to use the same
-agreements. Such checks are known as contract tests.
+architecture, this is called a **source of truth**. The backend then provides one
+clear route for changes. The frontend only presents a change as successful after
+the backend has confirmed it. Automated tests subsequently verify that the
+frontend and backend continue to use the same agreements. Such checks are known
+as contract tests.
 
 This does not replace the whole application. It first addresses the architectural
 cause: unclear data ownership and multiple routes for the same action.
@@ -125,7 +125,7 @@ Rebuilding everything is sometimes the best choice. For example, when:
 - critical components cannot be replaced separately;
 - the cost and risk of incremental repair are demonstrably higher;
 - the existing behaviour is documented and tested well enough to decide
-  deliberately what returns.
+  deliberately what must be rebuilt.
 
 That final point matters in particular. Without knowledge of current behaviour,
 a rewrite becomes a discovery project with a deadline. The old code remains
@@ -134,14 +134,14 @@ more exceptions.
 
 Define in advance what makes the new version successful. Not just "the same
 features with new technology", but measurable results such as shorter lead time,
-fewer incidents or one demonstrable source for important data.
+fewer incidents or one reliable, authoritative source for important data.
 
 ## Replace while the system keeps running
 
 One large transition at a single moment increases risk. It is often safer to
 place new behaviour alongside the existing system one step at a time. New
-components then take over increasing amounts of traffic and responsibility until
-the old part can be switched off. This approach is known as the **strangler
+components then take over increasing numbers of requests and responsibilities
+until the old part can be switched off. This approach is known as the **strangler
 pattern**.
 
 With an old customer portal, for example, only the search function might be sent

@@ -34,7 +34,7 @@ Ouderdom alleen zegt weinig. Software van tien jaar oud kan betrouwbaar en goed
 te wijzigen zijn. Een toepassing van een jaar oud kan al vastlopen door
 onduidelijke grenzen en sterke onderlinge afhankelijkheden.
 
-Maak de klacht daarom concreet. Bijvoorbeeld:
+Maak het probleem daarom concreet. Bijvoorbeeld:
 
 - een kleine wijziging raakt steeds meerdere onderdelen;
 - releases duren lang of moeten vaak worden teruggedraaid;
@@ -80,10 +80,11 @@ systeem zichtbaar vanuit de uitvoer. Technisch noemen we dat _observability_.
 
 **Isoleren.** Een moeilijk onderdeel kan achter een duidelijke grens worden
 gezet. De rest van het systeem gebruikt dan een afgesproken contract, zoals een
-API. Dat is een technische ingang met vaste afspraken. Andere onderdelen hoeven
-de interne werking dan niet te kennen. Daardoor neemt de onderlinge
-afhankelijkheid af: de mate waarin een wijziging in het ene onderdeel wijzigingen
-elders afdwingt. Technisch heet die afhankelijkheid **coupling**.
+API. Via zo'n interface wisselen systemen volgens vaste afspraken gegevens uit.
+Andere onderdelen hoeven de interne werking dan niet te kennen. Daardoor neemt
+de onderlinge afhankelijkheid af: de mate waarin een wijziging in het ene
+onderdeel wijzigingen elders afdwingt. Technisch heet die afhankelijkheid
+**coupling**.
 
 **Gericht vervangen.** Als één onderdeel de meeste problemen veroorzaakt, kan
 dat onderdeel vaak apart worden vervangen. De rest blijft ondertussen werken.
@@ -107,11 +108,11 @@ elkaar blijven bestaan.
 
 Een gerichte aanpak begint met één leidende gegevensbron: de plek die voor een
 gegeven bepaalt wat juist is. In softwarearchitectuur heet dit een **source of
-truth**. Daarna krijgt de backend één duidelijk contract voor wijzigingen. De
-frontend toont een wijziging pas als geslaagd wanneer de backend die via dat
-contract heeft bevestigd. Automatische tests controleren vervolgens of frontend
-en backend dezelfde afspraken blijven gebruiken. Zulke controles worden
-contracttests genoemd.
+truth**. Daarna loopt iedere wijziging via één duidelijke route in de backend. De
+frontend toont een wijziging pas als geslaagd wanneer de backend die heeft
+bevestigd. Automatische tests controleren vervolgens of frontend en backend
+dezelfde afspraken blijven gebruiken. Zulke controles worden contracttests
+genoemd.
 
 Zo wordt niet de hele toepassing vervangen. Eerst wordt de architectonische
 oorzaak aangepakt: onduidelijk eigenaarschap van gegevens en meerdere routes voor
@@ -126,7 +127,7 @@ Volledig opnieuw bouwen is soms de beste keuze. Bijvoorbeeld wanneer:
 - kritieke onderdelen niet afzonderlijk zijn te vervangen;
 - de kosten en risico's van stapsgewijs herstel aantoonbaar hoger zijn;
 - het bestaande gedrag voldoende is beschreven en getest om bewust te kiezen wat
-  terugkomt.
+  opnieuw moet worden gebouwd.
 
 Vooral dat laatste punt is belangrijk. Zonder kennis van het huidige gedrag wordt
 een rewrite een ontdekkingstocht met een deadline. De oude code blijft dan langer
@@ -135,13 +136,14 @@ overnemen.
 
 Maak daarom vooraf ook duidelijk wanneer de nieuwe versie geslaagd is. Niet alleen
 "dezelfde functies met nieuwe techniek", maar meetbare resultaten zoals kortere
-doorlooptijd, minder incidenten of één aantoonbare bron voor belangrijke gegevens.
+doorlooptijd, minder incidenten of één betrouwbare, leidende bron voor belangrijke
+gegevens.
 
 ## Vervang terwijl het systeem blijft werken
 
 Een grote overgang op één moment vergroot het risico. Vaak is het veiliger om
 nieuw gedrag stap voor stap naast het bestaande systeem te zetten. Nieuwe
-onderdelen nemen dan steeds meer verkeer en verantwoordelijkheid over, totdat het
+onderdelen nemen dan steeds meer verzoeken en verantwoordelijkheid over, totdat het
 oude deel kan worden uitgezet. Deze aanpak heet het **strangler pattern**.
 
 Bij een oud klantportaal kan bijvoorbeeld eerst alleen de zoekfunctie naar een
