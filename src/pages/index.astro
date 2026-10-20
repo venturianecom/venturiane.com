@@ -3,6 +3,7 @@ import {
   defaultLanguage,
   languageNames,
   languageRoutes,
+  languageStorageKey,
   supportedLanguages,
 } from "../i18n/config";
 ---
@@ -15,39 +16,21 @@ import {
     <meta name="robots" content="noindex, follow" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#07111f" />
-    <noscript>
-      <meta http-equiv="refresh" content={`0; url=/${defaultLanguage}/`} />
-    </noscript>
-    <title>Venturian Ecom</title>
-    {supportedLanguages.map((language) => (
-      <link
-        rel="alternate"
-        hreflang={language}
-        href={new URL(languageRoutes[language], Astro.site)}
-      />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={Astro.site} />
-  </head>
-  <body>
-    <p>
-      {supportedLanguages.map((language) => (
-        <a href={languageRoutes[language]} hreflang={language}>
-          {languageNames[language]}
-        </a>
-      ))}
-    </p>
-    <script>
-      import {
+    <script
+      is:inline
+      define:vars={{
         defaultLanguage,
-        isLanguage,
         languageRoutes,
         languageStorageKey,
-      } from "../i18n/config";
-
+        supportedLanguages,
+      }}
+    >
       function getSavedLanguage() {
         try {
           const language = localStorage.getItem(languageStorageKey);
-          return language && isLanguage(language) ? language : null;
+          return language && supportedLanguages.includes(language)
+            ? language
+            : null;
         } catch {
           return null;
         }
@@ -65,5 +48,37 @@ import {
       const language = getSavedLanguage() ?? getDeviceLanguage();
       window.location.replace(languageRoutes[language]);
     </script>
+    <style>
+      html {
+        background: #07111f;
+        color: #f8fafc;
+      }
+      a {
+        color: inherit;
+      }
+    </style>
+    <noscript>
+      <meta http-equiv="refresh" content={`0; url=/${defaultLanguage}/`} />
+    </noscript>
+    <title>Venturian Ecom</title>
+    {supportedLanguages.map((language) => (
+      <link
+        rel="alternate"
+        hreflang={language}
+        href={new URL(languageRoutes[language], Astro.site)}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={Astro.site} />
+  </head>
+  <body>
+    <noscript>
+      <p>
+        {supportedLanguages.map((language) => (
+          <a href={languageRoutes[language]} hreflang={language}>
+            {languageNames[language]}
+          </a>
+        ))}
+      </p>
+    </noscript>
   </body>
 </html>
