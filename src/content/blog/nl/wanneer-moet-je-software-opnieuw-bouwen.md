@@ -9,6 +9,7 @@ author:
   url: https://timtwiest.nl
 pubDate: 2026-10-02
 tags:
+  - biz
   - softwarearchitectuur
   - softwareontwikkeling
   - consultancy

@@ -9,6 +9,7 @@ author:
   url: https://timtwiest.nl
 pubDate: 2026-09-29
 tags:
+  - techy
   - technology
   - simplicity
   - web development

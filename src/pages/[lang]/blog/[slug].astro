@@ -85,6 +85,16 @@ const readingMinutes = getReadingTimeMinutes(post.body);
           <span aria-hidden="true">·</span>
           <span>{copy.articleReadingTimeLabel(readingMinutes)}</span>
         </p>
+        {post.data.tags.some((tag) => ["techy", "biz"].includes(tag)) && (
+          <ul class="article-tags" aria-label="Tags">
+            {post.data.tags
+              .filter((tag) => ["techy", "biz"].includes(tag))
+              .slice(0, 1)
+              .map((tag) => (
+                <li>#{tag}</li>
+              ))}
+          </ul>
+        )}
         <Content />
       </article>
     </main>
