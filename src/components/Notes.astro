@@ -45,6 +45,16 @@ const dateFormatter = new Intl.DateTimeFormat(
             </a>
           </h3>
           <p>{post.data.description}</p>
+          {post.data.tags.some((tag) => ["techy", "biz"].includes(tag)) && (
+            <ul class="article-tags" aria-label="Tags">
+              {post.data.tags
+                .filter((tag) => ["techy", "biz"].includes(tag))
+                .slice(0, 1)
+                .map((tag) => (
+                  <li>#{tag}</li>
+                ))}
+            </ul>
+          )}
         </article>
       ))
     )}
